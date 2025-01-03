@@ -16,7 +16,7 @@ const Header = () => {
 
     return (
         <header className="bg-[#AB9222]">
-            <div className="container mx-auto px-4 flex justify-between items-center py-4">
+            <div className="px-4 mx-auto flex justify-between items-center ">
                 {/* Logo */}
                 <Link to="/" className="flex items-center">
                     <img
@@ -28,69 +28,69 @@ const Header = () => {
                     />
                 </Link>
 
-                {!isAuthPage ? (
-                    <div className="hidden lg:flex space-x-6 ml-auto">
-                        <NavLink
-                            to="/"
-                            className={({ isActive }) =>
-                                `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
-                            }
-                        >
-                            Home
-                        </NavLink>
-                        <NavLink
-                            to="/about"
-                            className={({ isActive }) =>
-                                `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
-                            }
-                        >
-                            About
-                        </NavLink>
-                        <NavLink
-                            to="/services"
-                            className={({ isActive }) =>
-                                `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
-                            }
-                        >
-                            Services
-                        </NavLink>
-                        <NavLink
-                            to="/projects"
-                            className={({ isActive }) =>
-                                `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
-                            }
-                        >
-                            Projects
-                        </NavLink>
-                        <NavLink
-                            to="/contact"
-                            className={({ isActive }) =>
-                                `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
-                            }
-                        >
-                            Contact
-                        </NavLink>
-                    </div>
-                ) : (
-                    <div className="hidden lg:flex space-x-6 ml-auto">
-                        <NavLink
-                            to="/login"
-                            className={({ isActive }) =>
-                                `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
-                            }
-                        >
-                            Login
-                        </NavLink>
-                        <NavLink
-                            to="/register"
-                            className={({ isActive }) =>
-                                `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
-                            }
-                        >
-                            Register
-                        </NavLink>
-                    </div>
-                )}
+
+                {/*<div className="hidden lg:flex space-x-6 ml-auto">*/}
+                {/*    <NavLink*/}
+                {/*        to="/"*/}
+                {/*        className={({ isActive }) =>*/}
+                {/*            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`*/}
+                {/*        }*/}
+                {/*    >*/}
+                {/*        Home*/}
+                {/*    </NavLink>*/}
+                {/*    <NavLink*/}
+                {/*        to="/about"*/}
+                {/*        className={({ isActive }) =>*/}
+                {/*            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`*/}
+                {/*        }*/}
+                {/*    >*/}
+                {/*        About*/}
+                {/*    </NavLink>*/}
+                {/*    <NavLink*/}
+                {/*        to="/services"*/}
+                {/*        className={({ isActive }) =>*/}
+                {/*            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`*/}
+                {/*        }*/}
+                {/*    >*/}
+                {/*        Services*/}
+                {/*    </NavLink>*/}
+                {/*    <NavLink*/}
+                {/*        to="/projects"*/}
+                {/*        className={({ isActive }) =>*/}
+                {/*            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`*/}
+                {/*        }*/}
+                {/*    >*/}
+                {/*        Projects*/}
+                {/*    </NavLink>*/}
+                {/*    <NavLink*/}
+                {/*        to="/contact"*/}
+                {/*        className={({ isActive }) =>*/}
+                {/*            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`*/}
+                {/*        }*/}
+                {/*    >*/}
+                {/*        Contact*/}
+                {/*    </NavLink>*/}
+                {/*</div>*/}
+
+                <div className="hidden lg:flex space-x-6 ml-auto">
+                    <NavLink
+                        to="/login"
+                        className={({ isActive }) =>
+                            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
+                        }
+                    >
+                        Login
+                    </NavLink>
+                    <NavLink
+                        to="/register"
+                        className={({ isActive }) =>
+                            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
+                        }
+                    >
+                        Register
+                    </NavLink>
+                </div>
+
 
                 <button
                     onClick={toggleMobileMenu}
