@@ -1,4 +1,6 @@
 // eslint-disable-next-line no-unused-vars
+// noinspection BadExpressionStatementJS
+
 import React, {useState} from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
 import Logo from "../assets/logo.png";
@@ -12,7 +14,7 @@ const Header = () => {
     const location = useLocation();
 
     // Determine if the current path is /login or /register
-    const isAuthPage = location.pathname === '/login' || location.pathname === '/register';
+    const isAuthorized = location.pathname === '/login' || location.pathname === '/register' || location.pathname === '/landing';
 
     return (
         <header className="bg-[#AB9222]">
@@ -28,69 +30,65 @@ const Header = () => {
                     />
                 </Link>
 
-
-                {/*<div className="hidden lg:flex space-x-6 ml-auto">*/}
-                {/*    <NavLink*/}
-                {/*        to="/"*/}
-                {/*        className={({ isActive }) =>*/}
-                {/*            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`*/}
-                {/*        }*/}
-                {/*    >*/}
-                {/*        Home*/}
-                {/*    </NavLink>*/}
-                {/*    <NavLink*/}
-                {/*        to="/about"*/}
-                {/*        className={({ isActive }) =>*/}
-                {/*            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`*/}
-                {/*        }*/}
-                {/*    >*/}
-                {/*        About*/}
-                {/*    </NavLink>*/}
-                {/*    <NavLink*/}
-                {/*        to="/services"*/}
-                {/*        className={({ isActive }) =>*/}
-                {/*            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`*/}
-                {/*        }*/}
-                {/*    >*/}
-                {/*        Services*/}
-                {/*    </NavLink>*/}
-                {/*    <NavLink*/}
-                {/*        to="/projects"*/}
-                {/*        className={({ isActive }) =>*/}
-                {/*            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`*/}
-                {/*        }*/}
-                {/*    >*/}
-                {/*        Projects*/}
-                {/*    </NavLink>*/}
-                {/*    <NavLink*/}
-                {/*        to="/contact"*/}
-                {/*        className={({ isActive }) =>*/}
-                {/*            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`*/}
-                {/*        }*/}
-                {/*    >*/}
-                {/*        Contact*/}
-                {/*    </NavLink>*/}
-                {/*</div>*/}
-
-                <div className="hidden lg:flex space-x-6 ml-auto">
-                    <NavLink
-                        to="/login"
-                        className={({ isActive }) =>
-                            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
-                        }
-                    >
-                        Login
-                    </NavLink>
-                    <NavLink
-                        to="/register"
-                        className={({ isActive }) =>
-                            `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
-                        }
-                    >
-                        Register
-                    </NavLink>
-                </div>
-
+                {!isAuthorized ? (
+                    <>
+                        <div className="hidden lg:flex space-x-6 ml-auto">
+                            <NavLink
+                                to="/"
+                                className={({isActive}) =>
+                                    `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
+                                }
+                            >
+                                Home
+                            </NavLink>
+                            <NavLink
+                                to="/instructions"
+                                className={({isActive}) =>
+                                    `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
+                                }
+                            >
+                                Instructions
+                            </NavLink>
+                            <NavLink
+                                to="/signs"
+                                className={({isActive}) =>
+                                    `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
+                                }
+                            >
+                                Basic Signs
+                            </NavLink>
+                            <NavLink
+                                to="/login"
+                                className={({isActive}) =>
+                                    `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
+                                }
+                            >
+                                Logout
+                            </NavLink>
+                        </div>
+                    </>
+                    ) : (
+                    <>
+                        <div className="hidden lg:flex space-x-6 ml-auto">
+                            <NavLink
+                                to="/login"
+                                className={({isActive}) =>
+                                    `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
+                                }
+                            >
+                                Login
+                            </NavLink>
+                            <NavLink
+                                to="/register"
+                                className={({isActive}) =>
+                                    `font-open-sans text-lg ${isActive ? 'text-[#666]' : 'text-white'}`
+                                }
+                            >
+                                Register
+                            </NavLink>
+                        </div>
+                    </>
+                )}
 
                 <button
                     onClick={toggleMobileMenu}
@@ -103,7 +101,7 @@ const Header = () => {
                         viewBox="0 0 24 24"
                         stroke="currentColor"
                     >
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16m-7 6h7"/>
                     </svg>
                 </button>
             </div>
@@ -134,7 +132,7 @@ const Header = () => {
                     </svg>
                 </button>
                 <ul className="flex flex-col items-center space-y-4 mt-20">
-                    {!isAuthPage ? (
+                    {!isAuthorized ? (
                         <>
                             <li>
                                 <NavLink

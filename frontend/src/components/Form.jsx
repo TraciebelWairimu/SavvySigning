@@ -46,7 +46,7 @@ function Form({ route, method }) {
                 showToast("Login successful.", "success");
                 navigate("/");
             } else {
-                showToast("Registration successful. Please log in.", "success");
+                showToast("Registration successful. Redirecting to login...", "success");
                 navigate("/login");
             }
         } catch (error) {

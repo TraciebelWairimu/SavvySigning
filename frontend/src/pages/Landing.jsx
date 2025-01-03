@@ -34,7 +34,6 @@ const Landing = () => {
                                 tutorials. Communication made simple and accessible!
                             </p>
                         </div>
-
                     </div>
                     <div className="relative z-10">
                         <Footer/>
