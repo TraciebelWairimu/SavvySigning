@@ -1,85 +1,57 @@
-import { useState, useEffect } from "react";
-import api from "../api";
-import Note from "../components/Note"
-import "../styles/Home.css"
+// eslint-disable-next-line no-unused-vars
+import React from "react";
+import Header from "../components/Header.jsx";
+import Footer from "../components/Footer.jsx";
+import {Link} from "react-router-dom";
 
 function Home() {
-    const [notes, setNotes] = useState([]);
-    const [content, setContent] = useState("");
-    const [title, setTitle] = useState("");
-
-    useEffect(() => {
-        getNotes();
-    }, []);
-
-    const getNotes = () => {
-        api
-            .get("/api/notes/")
-            .then((res) => res.data)
-            .then((data) => {
-                setNotes(data);
-                console.log(data);
-            })
-            .catch((err) => alert(err));
-    };
-
-    const deleteNote = (id) => {
-        api
-            .delete(`/api/notes/delete/${id}/`)
-            .then((res) => {
-                if (res.status === 204) alert("Note deleted!");
-                else alert("Failed to delete note.");
-                getNotes();
-            })
-            .catch((error) => alert(error));
-    };
-
-    const createNote = (e) => {
-        e.preventDefault();
-        api
-            .post("/api/notes/", { content, title })
-            .then((res) => {
-                if (res.status === 201) alert("Note created!");
-                else alert("Failed to make note.");
-                getNotes();
-            })
-            .catch((err) => alert(err));
-    };
-
     return (
-        <div>
-            <div>
-                <h2>Notes</h2>
-                {notes.map((note) => (
-                    <Note note={note} onDelete={deleteNote} key={note.id} />
-                ))}
+        <>
+            <div className="min-h-screen bg-white relative">
+                <Header/>
+                <div className="relative min-h-[100vh] flex flex-col">
+                    <div className="absolute inset-0 bg-landingBg bg-no-repeat bg-cover opacity-50 z-0"></div>
+                    <div className="relative z-10 flex-grow px-4 py-16">
+                        <h1 className="text-4xl font-zcool font-semibold uppercase text-center mb-12">
+                            How It Works
+                        </h1>
+                        <div
+                            className="max-w-4xl mx-auto bg-gray-500 bg-opacity-90 text-white p-8 rounded-lg shadow-lg">
+                            <p className="hidden md:block text-lg leading-relaxed">
+                                To Use The Savvy Signing Application, Start By Logging In Or Registering Through The
+                                Buttons In The Top-Right Corner Of The Homepage. Once Logged In, Ensure Your Camera Is
+                                Enabled, As The Application Requires Real-Time Gesture Recognition. Navigate To The Main
+                                Interface And Position Your Hand Gestures Within The Camera's Frame, Ensuring Good
+                                Lighting For Accurate Detection. The Application Will Recognize Your Sign Language
+                                Gestures And Instantly Translate Them Into Text Displayed On The Screen. You Can Also
+                                Explore Features Like Learning Common Signs, Reviewing Saved Translations, Or Accessing
+                                Tutorials To Improve Your Signing Skills. With Its Intuitive Design, Savvy Signing Makes
+                                Communication Seamless And Accessible For All Users!
+                            </p>
+
+                            <p className="md:hidden text-lg leading-relaxed">
+                                Savvy Signing: Speak with your hands, read with ease! Log in, enable your camera and
+                                see real-time gesture-to-text translation. Explore common signs, saved translations and
+                                tutorials. Communication made simple and accessible!
+                            </p>
+
+                            <div className="text-center mt-8">
+                                <Link
+                                    to="/translate"
+                                    className="inline-block bg-black text-white px-6 py-3 w-full md:w-1/3 text-lg font-semibold uppercase text-center"
+                                >
+                                    Start Translation
+                                </Link>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="relative z-10">
+                        <Footer/>
+                    </div>
+                </div>
             </div>
-            <h2>Create a Note</h2>
-            <form onSubmit={createNote}>
-                <label htmlFor="title">Title:</label>
-                <br />
-                <input
-                    type="text"
-                    id="title"
-                    name="title"
-                    required
-                    onChange={(e) => setTitle(e.target.value)}
-                    value={title}
-                />
-                <label htmlFor="content">Content:</label>
-                <br />
-                <textarea
-                    id="content"
-                    name="content"
-                    required
-                    value={content}
-                    onChange={(e) => setContent(e.target.value)}
-                ></textarea>
-                <br />
-                <input type="submit" value="Submit"></input>
-            </form>
-        </div>
-    );
+        </>
+    )
 }
 
 export default Home;

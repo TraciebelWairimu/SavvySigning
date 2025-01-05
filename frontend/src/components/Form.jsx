@@ -11,6 +11,8 @@ import "react-toastify/dist/ReactToastify.css";
 
 
 function Form({ route, method }) {
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [loading, setLoading] = useState(false);
@@ -24,73 +26,85 @@ function Form({ route, method }) {
     };
 
     const showToast = (message, type) => {
-        switch (type) {
-            case 'success':
-                toast.success(message);
-                break;
-            case 'error':
-                toast.error(message);
-                break;
-            default:
-                toast(message);
-        }
+        toast[type](message);
     };
 
     const handleSubmit = async (e) => {
         setLoading(true);
         e.preventDefault();
 
+        const formData =
+            method === "login"
+                ? { username, password }
+                : { first_name: firstName, last_name: lastName, username, password };
+
         try {
-            const res = await api.post(route, { username, password });
+            const res = await api.post(route, formData);
             if (method === "login") {
                 localStorage.setItem(ACCESS_TOKEN, res.data.access);
                 localStorage.setItem(REFRESH_TOKEN, res.data.refresh);
                 showToast("Login successful.", "success");
                 navigate("/");
             } else {
+                showToast("Registration successful. Redirecting to login...", "success");
                 navigate("/login");
             }
         } catch (error) {
-            console.error("Error occurred:", error);
-
-            const errorData = error.response?.data;
-
-            let errorMessage = "An unexpected error occurred. Please try again.";
-            if (errorData) {
-                if (typeof errorData === "object" && !Array.isArray(errorData)) {
-                    errorMessage = Object.values(errorData)
-                        .flat()
-                        .join(" ");
-                } else if (typeof errorData === "string") {
-                    errorMessage = errorData;
-                }
-            } else if (error.message) {
-                errorMessage = error.message;
-            }
-
+            const errorMessage =
+                error.response?.data || "An unexpected error occurred. Please try again.";
             showToast(errorMessage, "error");
         } finally {
             setLoading(false);
         }
     };
 
-
-
-
     return (
         <>
             <div className="min-h-screen bg-white">
-                <Header/>
+                <Header />
                 <div className="relative min-h-[100vh] mx-auto px-4 py-16">
                     <div className="absolute inset-0 bg-landingBg bg-no-repeat bg-cover opacity-50 z-0"></div>
                     <div className="relative z-10">
                         <h1 className="text-4xl font-zcool font-semibold text-center mb-12">
                             {name} here
                         </h1>
-
                         <div className="mx-auto w-full max-w-xl rounded-lg bg-[#ddd3a6] p-8 shadow-lg">
                             <form className="space-y-6" onSubmit={handleSubmit}>
-                                <div className="space-y-2">
+                                {method === "register" && (
+                                    <>
+                                        <div className="space-y-1">
+                                            <label
+                                                htmlFor="firstName"
+                                                className="block text-lg font-open-sans font-medium text-gray-800"
+                                            >
+                                                First Name
+                                            </label>
+                                            <input
+                                                className="font-open-sans form-control w-full bg-white border border-[#CBD5E0] rounded-md"
+                                                type="text"
+                                                value={firstName}
+                                                onChange={(e) => setFirstName(e.target.value)}
+                                                placeholder="Eg John"
+                                            />
+                                        </div>
+                                        <div className="space-y-1">
+                                            <label
+                                                htmlFor="lastName"
+                                                className="block text-lg font-open-sans font-medium text-gray-800"
+                                            >
+                                                Last Name
+                                            </label>
+                                            <input
+                                                className="font-open-sans form-control w-full bg-white border border-[#CBD5E0] rounded-md"
+                                                type="text"
+                                                value={lastName}
+                                                onChange={(e) => setLastName(e.target.value)}
+                                                placeholder="Eg Doe"
+                                            />
+                                        </div>
+                                    </>
+                                )}
+                                <div className="space-y-1">
                                     <label
                                         htmlFor="username"
                                         className="block text-lg font-open-sans font-medium text-gray-800"
@@ -98,15 +112,14 @@ function Form({ route, method }) {
                                         Username
                                     </label>
                                     <input
-                                        className="font-open-sans form-control w-full bg-white border border-[#CBD5E0] rounded-md text-[#4A5568]"
+                                        className="font-open-sans form-control w-full bg-white border border-[#CBD5E0] rounded-md"
                                         type="text"
                                         value={username}
                                         onChange={(e) => setUsername(e.target.value)}
                                         placeholder="Eg john_doe"
                                     />
                                 </div>
-
-                                <div className="space-y-2">
+                                <div className="space-y-1">
                                     <div className="flex justify-between items-center">
                                         <label
                                             htmlFor="password"
@@ -114,12 +127,6 @@ function Form({ route, method }) {
                                         >
                                             Password
                                         </label>
-                                        {/*<Link*/}
-                                        {/*    to="/forgot-password"*/}
-                                        {/*    className="mt-3 font-open-sans text-sm text-gray-600 underline hover:no-underline"*/}
-                                        {/*>*/}
-                                        {/*    Forgot Password?*/}
-                                        {/*</Link>*/}
                                     </div>
                                     <div className="relative">
                                         <input
@@ -131,26 +138,44 @@ function Form({ route, method }) {
                                         />
                                         <FontAwesomeIcon
                                             icon={showPassword ? faEye : faEyeSlash}
-                                            style={{
-                                                position: "absolute",
-                                                right: "5%",
-                                                top: "30%",
-                                                cursor: "pointer",
-                                            }}
+                                            className="absolute right-4 top-1/2 transform -translate-y-1/2 cursor-pointer"
                                             onClick={togglePasswordVisibility}
                                         />
                                     </div>
                                 </div>
-
                                 <button
                                     type="submit"
                                     disabled={loading}
-                                    className={`font-open-sans mx-auto block w-full rounded-full bg-black px-5 py-2.5 text-white text-xl ${
+                                    className={`font-open-sans block w-full rounded-full bg-black px-5 py-2.5 text-white text-xl ${
                                         loading ? "opacity-50 cursor-not-allowed" : "hover:bg-black/90"
                                     }`}
                                 >
                                     {loading ? "loading..." : name}
                                 </button>
+
+                                <div className="font-open-sans text-center mt-4">
+                                    {method === "login" ? (
+                                        <p className="text-gray-700">
+                                            Don't have an account yet?{" "}
+                                            <Link
+                                                to="/register"
+                                                className="text-[#AB9222] underline"
+                                            >
+                                                Register
+                                            </Link>
+                                        </p>
+                                    ) : (
+                                        <p className="text-gray-700">
+                                            Already have an account?{" "}
+                                            <Link
+                                                to="/login"
+                                                className="text-[#AB9222] underline"
+                                            >
+                                                Login
+                                            </Link>
+                                        </p>
+                                    )}
+                                </div>
                             </form>
                         </div>
                     </div>
@@ -170,7 +195,6 @@ function Form({ route, method }) {
                 transition={Slide}
             />
         </>
-
     );
 }
 
