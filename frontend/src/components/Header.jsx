@@ -146,42 +146,32 @@ const Header = () => {
                             </li>
                             <li>
                                 <NavLink
-                                    to="/about"
-                                    className={({ isActive }) =>
+                                    to="/instructions"
+                                    className={({isActive}) =>
                                         `font-open-sans text-lg ${isActive ? 'text-[#AB9222]' : ''}`
                                     }
                                 >
-                                    About
+                                    Instructions
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink
-                                    to="/services"
+                                    to="/signs"
                                     className={({ isActive }) =>
                                         `font-open-sans text-lg ${isActive ? 'text-[#AB9222]' : ''}`
                                     }
                                 >
-                                    Services
+                                    Basic Signs
                                 </NavLink>
                             </li>
                             <li>
                                 <NavLink
-                                    to="/projects"
+                                    to="/login"
                                     className={({ isActive }) =>
                                         `font-open-sans text-lg ${isActive ? 'text-[#AB9222]' : ''}`
                                     }
                                 >
-                                    Projects
-                                </NavLink>
-                            </li>
-                            <li>
-                                <NavLink
-                                    to="/contact"
-                                    className={({ isActive }) =>
-                                        `font-open-sans text-lg ${isActive ? 'text-[#AB9222]' : ''}`
-                                    }
-                                >
-                                    Contact
+                                    Logout
                                 </NavLink>
                             </li>
                         </>
