@@ -1,6 +1,6 @@
 
 # Savvy Signing
-# Real-Time Sign Language Gesture Recognition and Translation To Text Mobile App using CNN LSTMs.
+# Real-Time Sign Language Gesture Recognition and Translation To Text Web App.
 
 ## Description
 
