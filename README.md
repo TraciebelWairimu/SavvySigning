@@ -1,7 +1,7 @@
 
 # Savvy Signing
 
--------------------------------------------------------------![Savvy Signing Logo](frontend/public/apple-touch-icon.png)------------------------------------------------------------------
+-------------------------------------------------------------![Savvy Signing Logo](frontend/public/apple-touch-icon.png)----------------------------------------
 
 # Real-Time Sign Language Gesture Recognition and Translation To Text Web App.
 
